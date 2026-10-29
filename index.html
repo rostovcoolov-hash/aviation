@@ -1,0 +1,29 @@
+<!doctype html>
+<html lang="ru">
+<head>
+<meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<title>SkyTrack 3D — Live Air Traffic</title>
+<link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css">
+<link rel="stylesheet" href="https://unpkg.com/maplibre-gl@4.7.1/dist/maplibre-gl.css">
+<link rel="stylesheet" href="https://cesium.com/downloads/cesiumjs/releases/1.123/Build/Cesium/Widgets/widgets.css">
+<link rel="stylesheet" href="/static/style.css">
+</head>
+<body>
+<header class="topbar"><div class="brand"><span class="brand-icon">✈</span><div><strong>SKYTRACK <em>3D</em></strong><small>LIVE AIR TRAFFIC & WEATHER</small></div></div><div class="live"><i></i> LIVE <span id="updated">Connecting…</span></div><button id="refresh" class="icon-btn" title="Обновить рейсы">↻</button></header>
+<main class="layout"><aside class="sidebar">
+<div class="section-label">ОТОБРАЖЕНИЕ</div><div class="toggle-row"><button class="mode active" data-view="globe">◉ Глобус</button><button class="mode" data-view="map">▧ 3D-карта</button></div>
+<div class="section-label">ПОГОДНЫЕ СЛОИ</div><div id="layers" class="layer-list">
+<button class="layer active" data-layer="none"><span>◌</span><b>Без слоя</b><small>Базовая карта</small></button>
+<button class="layer" data-layer="temperature"><span>🌡</span><b>Температура</b><small>Температурное поле</small></button>
+<button class="layer" data-layer="wind"><span>〰</span><b>Ветер</b><small>Скорость и направление</small></button>
+<button class="layer" data-layer="precipitation"><span>☂</span><b>Осадки</b><small>Дождь и снег</small></button>
+<button class="layer" data-layer="pressure"><span>◉</span><b>Давление</b><small>Атмосферное давление</small></button>
+<button class="layer" data-layer="clouds"><span>☁</span><b>Облачность</b><small>Облачный покров</small></button>
+<button class="layer" data-layer="elevation"><span>⛰</span><b>Высота рельефа</b><small>Цвет по высоте местности</small></button>
+</div>
+<div class="section-label">НАСТРОЙКИ СЛОЯ</div><label class="slider-label">Непрозрачность <output id="opacityValue">65%</output></label><input id="opacity" type="range" min="0" max="100" value="65"><label class="slider-label">Насыщенность <output id="saturationValue">1.35×</output></label><input id="saturation" type="range" min="50" max="250" value="135">
+<div class="section-label">ВОЗДУШНОЕ ДВИЖЕНИЕ</div><div class="stat-row"><span>Самолётов на экране</span><b id="flightCount">—</b></div><label class="check-row"><input type="checkbox" id="showFlights" checked> Показывать самолёты</label>
+<div class="source-note" id="sourceNote">Подключение к источникам данных…</div><div class="sidebar-footer">Данные ADS-B · OpenSky Network<br>Weather tiles · OpenWeather</div>
+</aside><section class="map-area"><div id="globe" class="map-view active"></div><div id="map" class="map-view"></div><div id="map-leaflet" aria-hidden="true"></div><div class="map-badge"><span class="pulse"></span><span id="viewLabel">3D GLOBE</span><span class="divider-v"></span><span id="layerLabel">BASE MAP</span></div><div id="flightPanel" class="flight-panel hidden"><button id="closeFlight" class="close">×</button><div class="panel-kicker">AIRCRAFT DETAILS</div><h2 id="flightCallsign">Aircraft</h2><div class="flight-grid"><div><small>ICAO24</small><b id="flightIcao">—</b></div><div><small>COUNTRY</small><b id="flightCountry">—</b></div><div><small>ALTITUDE</small><b id="flightAltitude">—</b></div><div><small>SPEED</small><b id="flightSpeed">—</b></div><div><small>HEADING</small><b id="flightHeading">—</b></div><div><small>VERTICAL RATE</small><b id="flightVertical">—</b></div></div><div id="flightPosition" class="position">—</div></div><div class="bottom-hint">Drag to rotate · Scroll to zoom · Select aircraft for details</div></section></main>
+<script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script><script src="https://unpkg.com/maplibre-gl@4.7.1/dist/maplibre-gl.js"></script><script src="https://cesium.com/downloads/cesiumjs/releases/1.123/Build/Cesium/Cesium.js"></script><script src="/static/app.js"></script>
+</body></html>
